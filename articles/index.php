@@ -13,7 +13,7 @@ require_once './connect.php';
             <li>Sport</li>
             <li>Nature</li>
             <li>Politics</li>
-            <li>Animal</li>
+            <li>Animals</li>
         </ul>
     </div>
 
@@ -34,7 +34,7 @@ foreach ($posts as $arPosts) {
     // echo '</pre>';
     ?>
 
-    <p><?= $arPosts['title'] ?></p>
+    <p><a href="#"><?= $arPosts['title'] ?></a></p>
     <p><?= $arPosts['content'] ?></p>
     <p><?= $arPosts['author_id'] ?></p>
     <p><?= $arPosts['date'] ?></p>

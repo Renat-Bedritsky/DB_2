@@ -42,7 +42,8 @@ class News {
 
 
     // Функция для записи данных
-    function setPosts($sql) {
+    function setPosts($id, $active = '0', $title, $code, $content, $category_id, $autor_id, $date) {
+        $sql = "";
         $this->general($sql);
     }
 }
