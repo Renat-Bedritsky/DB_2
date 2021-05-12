@@ -24,7 +24,7 @@ if (isset($_POST['title'])) {
     $category = $_POST['category'];
     $images = $_POST['images'];
 
-    $data = $shop->setPosts($id, , $title, $code, $content, $category_id, $autor_id, $date);
+    $data = $shop->setPosts($id, 0, $title, $code, $content, $category_id, $autor_id, $date);
 
     header("location: /index.php");
 

@@ -6,7 +6,135 @@
     <title>News</title>
     <link rel="stylesheet" href="style.css">
     <style>
-        
+        * {
+        margin: 0;
+        padding: 0;
+        }
+        html, body {
+            height: 100%;
+        }
+
+        .window {
+            margin: auto;
+            width: 80%;
+            display: flex;
+            flex-direction: column;
+            min-height: 100%;
+        }
+
+        h2 {
+            text-align: center;
+            font-size: 48px;
+        }
+
+        a {
+            text-decoration: none;
+            color: white;
+        }
+
+        a:hover {
+            color: #222;
+        }
+
+        li {
+            list-style-type: none;
+        }
+
+        .header {
+            background-color: rgb(39, 123, 218);
+            padding: 30px;
+            display: flex;
+        }
+
+        .header_logo {
+            width: 170px;
+            height: 50px;
+        }
+
+        .header_nav {
+            margin-left: 5%;
+            padding-top: 15px;
+        }
+
+        .header_nav ul li {
+            display: inline;
+            font-size: 32px;
+            text-transform: uppercase;
+            margin-left: 20px;
+            font-weight: 700;
+        }
+
+        .enter_account {
+            margin-left: auto;
+            font-size: 24px;
+        }
+
+        .content {
+            display: flex;
+            font-size: 24px;
+            flex: 1 0 auto;
+        }
+
+        .main_category {
+            width: calc(20% - 15px);
+            background-color: rgb(39, 123, 218);
+            padding: 10px;
+        }
+
+        .main_posts {
+            width: calc(80% - 15px);
+            background-color: rgb(236, 232, 167);
+            margin-left: 30px;
+            padding: 10px;
+        }
+
+        .main_posts a {
+            color: rgb(39, 123, 218);
+        }
+
+        .main_posts a:hover {
+            color: black;
+        }
+
+        .main_post_path {
+            margin: 15px 0;
+        }
+
+        .main_posts p:nth-child(1) {
+            font-weight: 100;
+            font-size: 24px;
+        }
+
+        .main_date_name {
+            display: flex;
+            margin-top: 5px;
+        }
+
+        .main_post_text {
+            margin: 20px;
+        }
+
+        .date {
+            margin-left: auto;
+        }
+
+        .gallery {
+            width: 300px;
+            height: 300px;
+        }
+
+        .footer {
+            margin-top: 50px;
+            display: flex;
+            background-color: #222;
+            padding: 30px;
+            color: white;
+            flex: 0 0 auto;
+        }
+
+        .footer ul {
+            margin-left: calc(100% - 600px);
+        }
     </style>
 </head>
 <body>

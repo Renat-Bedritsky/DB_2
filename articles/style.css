@@ -1,7 +1,6 @@
 * {
     margin: 0;
     padding: 0;
-    border: 1px solid red;
 }
 
 .window {
@@ -57,24 +56,20 @@ li {
 }
 
 .main_category {
-    width: 500px;
+    width: 300px;
     background-color: rgb(39, 123, 218);
     padding: 10px;
 }
 
 .main_posts {
+    width: 300px;
     background-color: rgb(236, 232, 167);
     margin-left: 30px;
     padding: 10px;
 }
 
-.main_posts p:nth-child(1) {
-    font-size: 32px;
-    font-weight: bold;
-}
-
 .footer {
-    margin-top: calc(100% - 900px);
+    margin-top: 400px;
     display: flex;
     background-color: #222;
     padding: 30px;

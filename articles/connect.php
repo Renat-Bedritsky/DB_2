@@ -18,14 +18,20 @@ class News {
 
 
     // Функция для получения данных
-    function getPosts($category) {
-        if ($category != 1 && $category != 0) {
-            $sql = "SELECT * FROM posts WHERE category = '$category'";       // Текст запроса с выбраноной категорией товаров
+    function getPosts($table, $category_id = 0) {
+        if ($category_id != 0) {
+            $sql = "SELECT * FROM $table WHERE category_id = '$category_id'";       // Текст запроса с выбраноной категорией товаров
         }
-        else if ($category == 1) {
+        else if ($table == 'authors') {
+            $sql = 'SELECT * FROM authors';                                  // Текст запроса без категории товаров (все товары)
+        }
+        else if ($table == 'categories') {
+            $sql = 'SELECT * FROM categories';                               // Текст запроса без категории товаров (все товары)
+        }
+        else if ($table == 'posts') {
             $sql = 'SELECT * FROM posts';                                    // Текст запроса без категории товаров (все товары)
         }
-        else if ($category == 0) {
+        else if ($table == 0) {
             $sql = 'SELECT COUNT(*) FROM posts';                             // Текст запроса для получения количества строк
         }
         
