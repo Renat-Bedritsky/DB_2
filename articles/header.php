@@ -4,12 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>News</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style2.css">
     <style>
         * {
         margin: 0;
         padding: 0;
         }
+
         html, body {
             height: 100%;
         }
@@ -20,6 +21,10 @@
             display: flex;
             flex-direction: column;
             min-height: 100%;
+        }
+
+        .window_wrapper {
+            flex: 1 0 auto;
         }
 
         h2 {
@@ -72,7 +77,6 @@
         .content {
             display: flex;
             font-size: 24px;
-            flex: 1 0 auto;
         }
 
         .main_category {
@@ -114,6 +118,31 @@
             margin: 20px;
         }
 
+        .pages_wrapper {
+            display: flex;
+        }
+                
+        .pages_wrapper div {
+            display: flex;
+            margin: 0 auto;
+        }
+
+        .pages_wrapper a {
+            padding: 0 6px;
+        }
+
+        .main_pages {
+            border: 1px solid black;
+            width: 25px;
+            height: 25px;
+            text-align: center;
+            margin: 0 4px;
+        }
+
+        .main_pages:hover {
+            border: 1px solid rgb(39, 123, 218);
+        }
+
         .date {
             margin-left: auto;
         }
@@ -124,7 +153,7 @@
         }
 
         .footer {
-            margin-top: 50px;
+            margin-top: 40px;
             display: flex;
             background-color: #222;
             padding: 30px;
@@ -141,22 +170,24 @@
     
 <div class="window">
 
-    <div class="header">
-    
-        <div>
-            <img src="./img/logo.png" class="header_logo" alt="logo">
-        </div>
+    <div class="window_wrapper">
 
-        <div class="header_nav">
-            <ul>
-                <li><a href="./index.php">Main</a></li>
-                <li><a href="./gallery.php">Gallery</a></li>
-                <li><a href="./contacts.php">Contacts</a></li>
-            </ul>
-        </div>
+        <div class="header">
+        
+            <div>
+                <img src="./img/logo.png" class="header_logo" alt="logo">
+            </div>
 
-        <div class="enter_account">
-            <div><a href="./enter.php">Войти</a></div>
+            <div class="header_nav">
+                <ul>
+                    <li><a href="./index.php">Main</a></li>
+                    <li><a href="./gallery.php">Gallery</a></li>
+                    <li><a href="./contacts.php">Contacts</a></li>
+                </ul>
+            </div>
+
+            <div class="enter_account">
+                <div><a href="./enter.php">Войти</a></div>
+            </div>
+        
         </div>
-    
-    </div>

@@ -45,9 +45,12 @@ $categoryTable = (array)$categoryTable;
 
 $postsTable = $news->getPosts('posts');
 $postsTable = (array)$postsTable;
+$postsTable = array_reverse($postsTable);
 
 $authorsTable = $news->getPosts('authors');
 $authorsTable = (array)$authorsTable;
+
+$counter = 0;   // Счётчик постов
 
 
 
@@ -65,24 +68,40 @@ if (isset($_GET['category'])) {
 
                 foreach ($cat as $path) {
                     if ($path['title'] == $arPosts['title']) {
+                        $counter += 1;   // Счётчик постов
 
                         foreach ($authorsTable as $author) {
+
+                            $coun = ceil($counter / 5);
     
                             if (isset($_GET['post']) && $_GET['post'] == $arPosts['title']) {
                                 viewPost($arPosts, $author['name']);
                             }
-            
-                            ?>
-                        
-                            <div class="main_post_path">
-                                <p class="post"><a href="?<?php if (isset($_GET['category'])) { ?>category=<?= $_GET['category']; ?>&<?php } ?>post=<?= $arPosts['title'] ?>"><?= $arPosts['title'] ?></a></p>
-                                <div class="main_date_name">
-                                    <p class="post"><?= $author['name'] ?></p>
-                                    <p class="post date"><?= $arPosts['date'] ?></p>
+
+                            if (isset($_GET['page']) && $_GET['page'] == $coun) { ?>
+                            
+                                <div class="main_post_path">
+                                    <p class="post"><a href="?<?php if (isset($_GET['category'])) { ?>category=<?= $_GET['category']; ?>&<?php } ?>post=<?= $arPosts['title'] ?>"><?= $arPosts['title'] ?></a></p>
+                                    <div class="main_date_name">
+                                        <p class="post"><?= $author['name'] ?></p>
+                                        <p class="post date"><?= $arPosts['date'] ?></p>
+                                    </div>
                                 </div>
-                            </div>
-                        
-                            <?php 
+                            
+                                <?php 
+                            }
+                            else if ($coun == 1) { ?>
+                            
+                                <div class="main_post_path">
+                                    <p class="post"><a href="?<?php if (isset($_GET['category'])) { ?>category=<?= $_GET['category']; ?>&<?php } ?>post=<?= $arPosts['title'] ?>"><?= $arPosts['title'] ?></a></p>
+                                    <div class="main_date_name">
+                                        <p class="post"><?= $author['name'] ?></p>
+                                        <p class="post date"><?= $arPosts['date'] ?></p>
+                                    </div>
+                                </div>
+                            
+                                <?php 
+                            }
                         }
                     }
                 }
@@ -92,24 +111,40 @@ if (isset($_GET['category'])) {
 }
 else {
     foreach ($postsTable as $arPosts) {
+        $counter += 1;   // Счётчик постов
 
         foreach ($authorsTable as $author) {
+
+            $coun = ceil($counter / 5);
     
             if (isset($_GET['post']) && $_GET['post'] == $arPosts['title']) {
                 viewPost($arPosts, $author['name']);
             }
-    
-            ?>
-        
-            <div class="main_post_path">
-                <p class="post"><a href="?post=<?= $arPosts['title'] ?>"><?= $arPosts['title'] ?></a></p>
-                <div class="main_date_name">
-                    <p class="post"><?= $author['name'] ?></p>
-                    <p class="post date"><?= $arPosts['date'] ?></p>
+
+            if (isset($_GET['page']) && $_GET['page'] == $coun) { ?>
+            
+                <div class="main_post_path">
+                    <p class="post"><a href="?post=<?= $arPosts['title'] ?>"><?= $arPosts['title'] ?></a></p>
+                    <div class="main_date_name">
+                        <p class="post"><?= $author['name'] ?></p>
+                        <p class="post date"><?= $arPosts['date'] ?></p>
+                    </div>
                 </div>
-            </div>
-        
-            <?php
+            
+                <?php
+            }
+            else if ($coun == 1) { ?>
+            
+                <div class="main_post_path">
+                    <p class="post"><a href="?<?php if (isset($_GET['category'])) { ?>category=<?= $_GET['category']; ?>&<?php } ?>post=<?= $arPosts['title'] ?>"><?= $arPosts['title'] ?></a></p>
+                    <div class="main_date_name">
+                        <p class="post"><?= $author['name'] ?></p>
+                        <p class="post date"><?= $arPosts['date'] ?></p>
+                    </div>
+                </div>
+            
+                <?php 
+            }
         }
     }
 }
@@ -119,24 +154,36 @@ else {
 
 
 function viewPost($post, $author) { ?>
-    <style>.main_post_path {display: none;}</style>
-    <p><b><?= $post['title'] ?></b></p>
-    <p class="main_post_text"><?= $post['content'] ?></p>
-    <div class="main_date_name">
-        <p><?= $author ?></p>
-        <p class="date"><?= $post['date'] ?></p>
-    </div>
-    <?php
+        <style>.main_post_path {display: none;}</style>
+        <p><b><?= $post['title'] ?></b></p>
+        <p class="main_post_text"><?= $post['content'] ?></p>
+        <div class="main_date_name">
+            <p><?= $author ?></p>
+            <p class="date"><?= $post['date'] ?></p>
+        </div>
+        <?php 
 }
 
-require_once './footer.php' 
+$pages = ceil($counter / 5);   // Количество страниц
 
 ?>
 
+        <div class="pages_wrapper"><div>
 
+            <?php
 
+            for ($i = 1; $i <= $pages; $i++) { ?>
+                
+                    <p class="main_pages"><a href="?page=<?= $i ?>"><?= $i ?></a></p>
 
+            <?php } ?>
+
+        </div></div>
 
     </div>
 
 </div>
+
+<?php
+
+require_once './footer.php';
