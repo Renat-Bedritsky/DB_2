@@ -20,16 +20,16 @@ class News {
     // Функция для получения данных
     function getPosts($table, $category_id = 0) {
         if ($category_id != 0) {
-            $sql = "SELECT * FROM $table WHERE category_id = '$category_id'";       // Текст запроса с выбраноной категорией товаров
+            $sql = "SELECT * FROM $table WHERE category_id = '$category_id'";       // Текст запроса с выбраноной категорией
         }
         else if ($table == 'authors') {
-            $sql = 'SELECT * FROM authors';                                  // Текст запроса без категории товаров (все товары)
+            $sql = 'SELECT * FROM authors';                                  // Текст запроса (К таблице с авторами)
         }
         else if ($table == 'categories') {
-            $sql = 'SELECT * FROM categories';                               // Текст запроса без категории товаров (все товары)
+            $sql = 'SELECT * FROM categories';                               // Текст запроса (К таблице с авторами)
         }
         else if ($table == 'posts') {
-            $sql = 'SELECT * FROM posts';                                    // Текст запроса без категории товаров (все товары)
+            $sql = 'SELECT * FROM posts';                                    // Текст запроса (К таблице с постами)
         }
         else if ($table == 0) {
             $sql = 'SELECT COUNT(*) FROM posts';                             // Текст запроса для получения количества строк

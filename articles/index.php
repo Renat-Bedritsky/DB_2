@@ -6,7 +6,7 @@ require_once './connect.php';
 <h2>Main</h2>
 
 <div class="content">
-
+    <!-- Меню с категориями -->
     <div class="main_category">
         <ul>
             <li><a href="?category=sport">Sport</a></li>
@@ -20,33 +20,18 @@ require_once './connect.php';
   
 <?php
 
-$categoryGet = '';
-if(isset($_GET['category'])) {
-    $categoryGet = $_GET['category'];
-}
-
-
-
-
-
-// Получение директории
-
-$dir = $_GET['dir'] ?? '.\\';   // Если 'dir' существует, то принимает 'dir', иначе \
-$dir = realpath($dir);          // Абсолютный путь к файлу
-chdir($dir);                    // Изменяет текущий каталог на указанный
-
-
-
-
 $news = new News();
 
+// Получение массива с категориями
 $categoryTable = $news->getPosts('categories');
 $categoryTable = (array)$categoryTable;
 
+// Получение массива с постами
 $postsTable = $news->getPosts('posts');
 $postsTable = (array)$postsTable;
 $postsTable = array_reverse($postsTable);
 
+// Получение массива с авторами
 $authorsTable = $news->getPosts('authors');
 $authorsTable = (array)$authorsTable;
 
@@ -56,52 +41,35 @@ $counter = 0;   // Счётчик постов
 
 
 
-if (isset($_GET['category'])) {
-    foreach ($categoryTable as $category) {
+if (isset($_GET['category'])) {                                                // Если пользователь выбрал категорию
+    foreach ($categoryTable as $category) {                                    // Перебор массива с категориями
         if ($_GET['category'] == $category['name']) {
-            foreach ($postsTable as $arPosts) {
+            foreach ($postsTable as $arPosts) {                                // Перебор массива с постами
 
-                $category_id = $category['id'];
+                $category_id = $news->getPosts('posts', $category['id']);
+                $category_id = (array)$category_id;
 
-                $cat = $news->getPosts('posts', $category_id);
-                $cat = (array)$cat;
-
-                foreach ($cat as $path) {
+                foreach ($category_id as $path) {
                     if ($path['title'] == $arPosts['title']) {
-                        $counter += 1;   // Счётчик постов
+                        $counter += 1;                                         // Счётчик постов
 
-                        foreach ($authorsTable as $author) {
+                        foreach ($authorsTable as $author) {                   // Перебор массива с авторами
 
-                            $coun = ceil($counter / 5);
+                            $coun = ceil($counter / 5);                        // Номер страници (на одной странице 5 постов)
     
                             if (isset($_GET['post']) && $_GET['post'] == $arPosts['title']) {
-                                viewPost($arPosts, $author['name']);
-                            }
-
-                            if (isset($_GET['page']) && $_GET['page'] == $coun) { ?>
-                            
-                                <div class="main_post_path">
-                                    <p class="post"><a href="?<?php if (isset($_GET['category'])) { ?>category=<?= $_GET['category']; ?>&<?php } ?>post=<?= $arPosts['title'] ?>"><?= $arPosts['title'] ?></a></p>
-                                    <div class="main_date_name">
-                                        <p class="post"><?= $author['name'] ?></p>
-                                        <p class="post date"><?= $arPosts['date'] ?></p>
-                                    </div>
+                                viewPost($arPosts, $author['name']);           // Вызов функции для просмотра поста
+                            } ?>
+                            <!-- Вывод постов -->
+                            <div class="main_post_path" <?php if ((isset($_GET['page']) && $_GET['page'] != $coun) || (!isset($_GET['page']) && $coun != 1)) { ?> style="display: none;" <?php } ?>>
+                                <p class="post"><a href="?post=<?= $arPosts['title'] ?>"><?= $arPosts['title'] ?></a></p> <!-- Оглавление поста -->
+                                <div class="main_date_name">
+                                    <p class="post"><?= $author['name'] ?></p>       <!-- Имя автора поста -->
+                                    <p class="post date"><?= $arPosts['date'] ?></p> <!-- Время публикации -->
                                 </div>
+                            </div>
                             
-                                <?php 
-                            }
-                            else if ($coun == 1) { ?>
-                            
-                                <div class="main_post_path">
-                                    <p class="post"><a href="?<?php if (isset($_GET['category'])) { ?>category=<?= $_GET['category']; ?>&<?php } ?>post=<?= $arPosts['title'] ?>"><?= $arPosts['title'] ?></a></p>
-                                    <div class="main_date_name">
-                                        <p class="post"><?= $author['name'] ?></p>
-                                        <p class="post date"><?= $arPosts['date'] ?></p>
-                                    </div>
-                                </div>
-                            
-                                <?php 
-                            }
+                            <?php
                         }
                     }
                 }
@@ -109,76 +77,59 @@ if (isset($_GET['category'])) {
         }
     }
 }
-else {
+else {                                                                           // Если пользователь не выбрал категорию
     foreach ($postsTable as $arPosts) {
-        $counter += 1;   // Счётчик постов
+        $counter += 1;                                                           // Счётчик постов
 
         foreach ($authorsTable as $author) {
 
-            $coun = ceil($counter / 5);
+            $coun = ceil($counter / 5);                                          // Номер страници (на одной странице 5 постов)
     
             if (isset($_GET['post']) && $_GET['post'] == $arPosts['title']) {
-                viewPost($arPosts, $author['name']);
-            }
-
-            if (isset($_GET['page']) && $_GET['page'] == $coun) { ?>
-            
-                <div class="main_post_path">
-                    <p class="post"><a href="?post=<?= $arPosts['title'] ?>"><?= $arPosts['title'] ?></a></p>
-                    <div class="main_date_name">
-                        <p class="post"><?= $author['name'] ?></p>
-                        <p class="post date"><?= $arPosts['date'] ?></p>
-                    </div>
+                viewPost($arPosts, $author['name']);                             // Вызов функции для просмотра поста
+            } ?>
+            <!-- Вывод постов -->
+            <div class="main_post_path" <?php if ((isset($_GET['page']) && $_GET['page'] != $coun) || (!isset($_GET['page']) && $coun != 1)) { ?> style="display: none;" <?php } ?>>
+                <p class="post"><a href="?post=<?= $arPosts['title'] ?>"><?= $arPosts['title'] ?></a></p> <!-- Оглавление поста -->
+                <div class="main_date_name">
+                    <p class="post"><?= $author['name'] ?></p>                  <!-- Имя автора поста -->
+                    <p class="post date"><?= $arPosts['date'] ?></p>            <!-- Время публикации -->
                 </div>
+            </div>
             
-                <?php
-            }
-            else if ($coun == 1) { ?>
-            
-                <div class="main_post_path">
-                    <p class="post"><a href="?<?php if (isset($_GET['category'])) { ?>category=<?= $_GET['category']; ?>&<?php } ?>post=<?= $arPosts['title'] ?>"><?= $arPosts['title'] ?></a></p>
-                    <div class="main_date_name">
-                        <p class="post"><?= $author['name'] ?></p>
-                        <p class="post date"><?= $arPosts['date'] ?></p>
-                    </div>
-                </div>
-            
-                <?php 
-            }
+            <?php
         }
     }
 }
 
-
-
-
-
-function viewPost($post, $author) { ?>
-        <style>.main_post_path {display: none;}</style>
-        <p><b><?= $post['title'] ?></b></p>
-        <p class="main_post_text"><?= $post['content'] ?></p>
-        <div class="main_date_name">
-            <p><?= $author ?></p>
-            <p class="date"><?= $post['date'] ?></p>
-        </div>
-        <?php 
-}
-
-$pages = ceil($counter / 5);   // Количество страниц
-
 ?>
 
-        <div class="pages_wrapper"><div>
 
-            <?php
+<!-- Форма для пагинации -->
+<form method="GET">
+    <?php 
+    for ($i = 1; $i <= $coun; $i++) { ?>
+        <button name="page" value="<?= $i ?>"><?= $i ?></button>
+    <?php } ?>
+</form>
 
-            for ($i = 1; $i <= $pages; $i++) { ?>
-                
-                    <p class="main_pages"><a href="?page=<?= $i ?>"><?= $i ?></a></p>
 
-            <?php } ?>
 
-        </div></div>
+
+<?php
+
+// Функция для просмотра поста
+function viewPost($post, $author) { ?>
+
+    <style>.main_post_path {display: none;}</style>
+    <p><b><?= $post['title'] ?></b></p>
+    <p class="main_post_text"><?= $post['content'] ?></p>
+    <div class="main_date_name">
+        <p><?= $author ?></p>
+        <p class="date"><?= $post['date'] ?></p>
+    </div>
+    
+<?php } ?>
 
     </div>
 

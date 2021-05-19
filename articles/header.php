@@ -1,3 +1,5 @@
+<?php include 'Users.php'; ?>
+
 <!DOCTYPE html>
 <html lang="ru">
 <head>
@@ -77,6 +79,7 @@
         .content {
             display: flex;
             font-size: 24px;
+            height: 600px;
         }
 
         .main_category {
@@ -118,33 +121,12 @@
             margin: 20px;
         }
 
-        .pages_wrapper {
-            display: flex;
-        }
-                
-        .pages_wrapper div {
-            display: flex;
-            margin: 0 auto;
-        }
-
-        .pages_wrapper a {
-            padding: 0 6px;
-        }
-
-        .main_pages {
-            border: 1px solid black;
-            width: 25px;
-            height: 25px;
-            text-align: center;
-            margin: 0 4px;
-        }
-
-        .main_pages:hover {
-            border: 1px solid rgb(39, 123, 218);
-        }
-
         .date {
             margin-left: auto;
+        }
+
+        .main_posts form {
+            margin-top: 8%;
         }
 
         .gallery {
@@ -182,12 +164,70 @@
                 <ul>
                     <li><a href="./index.php">Main</a></li>
                     <li><a href="./gallery.php">Gallery</a></li>
-                    <li><a href="./contacts.php">Contacts</a></li>
+
+                    <?php 
+            
+                    if (isset($_COOKIE['login'])) {
+                        $listUsers = new Users();
+                        $user = $listUsers->CheckCookieLogin($_COOKIE['login']);
+
+                        if (md5($user) == $_COOKIE['login']) { ?>
+
+                            <li><a href="./addPost.php">Add post</a></li>
+
+                        <?php 
+                        }
+                        else { ?>
+
+                            <li><a href="./contacts.php">Contacts</a></li>
+            
+                        <?php 
+                        }
+                    }
+                    else if (!isset($_COOKIE['login'])) {
+                    
+                    ?>
+
+                        <li><a href="./contacts.php">Contacts</a></li>
+
+                    <?php 
+                    } ?>
+
                 </ul>
             </div>
 
-            <div class="enter_account">
-                <div><a href="./enter.php">Войти</a></div>
-            </div>
+            <?php 
+            
+            if (isset($_COOKIE['login'])) {
+                $listUsers = new Users();
+                $user = $listUsers->CheckCookieLogin($_COOKIE['login']);
+
+                if (md5($user) == $_COOKIE['login']) { ?>
+
+                    <div class="enter_account">
+                        <div><a href="./logout.php">Logout</a></div>
+                    </div>
+
+                <?php 
+                }
+                else { ?>
+
+                    <div class="enter_account">
+                        <div><a href="./autorization.php">Login</a></div>
+                    </div>
+    
+                <?php 
+                }
+            }
+            else if (!isset($_COOKIE['login'])) {
+            
+            ?>
+
+                <div class="enter_account">
+                    <div><a href="./autorization.php">Login</a></div>
+                </div>
+
+            <?php 
+            } ?>
         
         </div>
