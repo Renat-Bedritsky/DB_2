@@ -29,12 +29,15 @@ class Users {
         }
     }
 
-    function CheckCookieLogin($login) {
+    function CheckCookieLogin() {
         $listUsers = $this->__construct();
+        $author_id = 1;
         foreach($listUsers as $userOne) {
-            if ($login == md5($userOne['login'])) {
-                return $userOne['login'];
+            if ($_COOKIE['login'] == md5($userOne['login'])) {
+                $userData = ['login' => $userOne['login'], 'author_id' => $author_id];
+                return $userData;
             }
+            else $author_id += 1;
         }
     }
 }

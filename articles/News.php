@@ -48,8 +48,18 @@ class News {
 
 
     // Функция для записи данных
-    function setPosts($id, $active = '0', $title, $code, $content, $category_id, $autor_id, $date) {
-        $sql = "";
+    function setPosts($data) {
+        
+        $id = $data['id'];
+        $active = $data['active'];
+        $title = $data['title'];
+        $code = $data['code'];
+        $content = $data['content'];
+        $category_id = $data['category_id'];
+        $author_id = $data['author_id'];
+        $date = $data['date'];
+
+        $sql = "INSERT INTO Posts VALUES ('$id', '$active', '$title', $code, '$content', '$category_id', '$author_id', '$date')";
         $this->general($sql);
     }
 }
