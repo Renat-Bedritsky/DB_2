@@ -9,7 +9,7 @@ if (isset($_POST['enter'])) {
     $password = md5($_POST['password']);
 
     if ($users->autorization($login, $password) == 'autorizationON') {
-        setcookie('login', md5($_POST['login']), time()+1800000);
+        setcookie('login', md5($_POST['login']));
         header("location: /articles/index.php");
     }
     else echo 'Проверьте логин и пароль';

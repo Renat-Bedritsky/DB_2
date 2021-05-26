@@ -20,30 +20,40 @@ class News {
     // Функция для получения данных
     function getPosts($table, $category_id = 0) {
         if ($category_id != 0) {
-            $sql = "SELECT * FROM $table WHERE category_id = '$category_id'";       // Текст запроса с выбраноной категорией
+            $sql = "SELECT * FROM $table WHERE category_id = '$category_id'";   // Текст запроса с выбраноной категорией
         }
         else if ($table == 'authors') {
-            $sql = 'SELECT * FROM authors';                                  // Текст запроса (К таблице с авторами)
+            $sql = 'SELECT * FROM authors';                                     // Текст запроса (К таблице с авторами)
         }
         else if ($table == 'categories') {
-            $sql = 'SELECT * FROM categories';                               // Текст запроса (К таблице с авторами)
+            $sql = 'SELECT * FROM categories';                                  // Текст запроса (К таблице с категориями)
         }
         else if ($table == 'posts') {
-            $sql = 'SELECT * FROM posts';                                    // Текст запроса (К таблице с постами)
+            $sql = 'SELECT * FROM posts';                                       // Текст запроса (К таблице с постами)
         }
         else if ($table == 0) {
-            $sql = 'SELECT COUNT(*) FROM posts';                             // Текст запроса для получения количества строк
+            $sql = 'SELECT COUNT(*) FROM posts';                                // Текст запроса для получения количества строк
         }
         
         $string = $this->general($sql);
-        $result = [];                                                                             // Пустой массив для товаров
+        $result = [];                                                           // Пустой массив для товаров
 
         if($string) {
-            while ($row = $string->fetch_assoc()) {                                               // fetch_assoc() извлекает запись
-                array_push($result, $row);                                                        // Добавление записи в массив
+            while ($row = $string->fetch_assoc()) {                             // fetch_assoc() извлекает запись
+                array_push($result, $row);                                      // Добавление записи в массив
             }
             return $result;
         }
+    }
+
+    function active($id) {
+        $sqlActive = "SELECT `active` FROM `posts` WHERE `id` = $id";      // Запрос для получения активности поста
+        $active = $this->general($sqlActive);                              // Отправка запроса
+        $active = $active->fetch_assoc();                                  // Распаковка данных
+        $active = $active['active'] + 1;                                   // Активность поста + 1
+        $sql = "UPDATE `posts` SET `active` = $active WHERE `id` = $id";   // Запрос на изменение активности
+        $this->general($sql);                                              // Отправка запроса
+        return $sql;
     }
 
 

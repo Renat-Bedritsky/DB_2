@@ -7,9 +7,14 @@ class Users {
     protected $file = 'F:/server/xampp/htdocs/articles/users.json';
     public $data = [];
 
-    function addUser() {
+    function allUser() {
         if(file_exists($this->file)){
             $this->data = json_decode(file_get_contents($this->file), true);
+            $allLogin = [];
+            foreach ($this->data as $user) {
+                array_push($allLogin, $user['login']);
+            }
+            return $allLogin;
         }
     }
 

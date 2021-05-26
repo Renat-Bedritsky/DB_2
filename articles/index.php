@@ -69,8 +69,9 @@ require_once './News.php';
                                     <div class="main_post_path" <?php if ((isset($_GET['page']) && $_GET['page'] != $coun) || (!isset($_GET['page']) && $coun != 1)) { ?> style="display: none;" <?php } ?>>
                                         <p class="post"><a href="?post=<?= $arPosts['title'] ?>"><?= $arPosts['title'] ?></a></p> <!-- Оглавление поста -->
                                         <div class="main_date_name">
-                                            <p class="post">Автор: <?= $author['name'] ?></p>       <!-- Имя автора поста -->
-                                            <p class="post date">Дата: <?= $arPosts['date'] ?></p> <!-- Время публикации -->
+                                            <p class="post">Автор: <?= $author['name'] ?></p>           <!-- Имя автора поста -->
+                                            <p class="post">Просмотров: <?= $arPosts['active'] ?></p>   <!-- Активность поста -->
+                                            <p class="post date">Дата: <?= $arPosts['date'] ?></p>      <!-- Время публикации -->
                                         </div>
                                     </div>
                                     
@@ -101,8 +102,9 @@ require_once './News.php';
                         <div class="main_post_path" <?php if ((isset($_GET['page']) && $_GET['page'] != $coun) || (!isset($_GET['page']) && $coun != 1)) { ?> style="display: none;" <?php } ?>>
                             <p class="post"><a href="?post=<?= $arPosts['title'] ?>"><?= $arPosts['title'] ?></a></p> <!-- Оглавление поста -->
                             <div class="main_date_name">
-                                <p class="post">Автор: <?= $author['name'] ?></p>                  <!-- Имя автора поста -->
-                                <p class="post date">Дата: <?= $arPosts['date'] ?></p>            <!-- Время публикации -->
+                                <p class="post">Автор: <?= $author['name'] ?></p>           <!-- Имя автора поста -->
+                                <p class="post_view">Просмотров: <?= $arPosts['active'] ?></p>   <!-- Активность поста -->
+                                <p class="post date">Дата: <?= $arPosts['date'] ?></p>      <!-- Время публикации -->
                             </div>
                         </div>
                     
@@ -132,14 +134,18 @@ require_once './News.php';
         <?php
 
         // Функция для просмотра поста
-        function viewPost($post, $author) { ?>
+        function viewPost($post, $author) {
+            
+            $news = new News();
+            $news->active($post['id']); ?>
 
             <style>.main_post_path {display: none;}.pages_pagination{display: none;}</style>
-            <p><b><?= $post['title'] ?></b></p>
-            <p class="main_post_text"><?= $post['content'] ?></p>
+            <p><b><?= $post['title'] ?></b></p>                     <!-- Оглавление поста -->
+            <p class="main_post_text"><?= $post['content'] ?></p>   <!-- Содержимое поста -->
             <div class="main_date_name">
-                <p><?= $author ?></p>
-                <p class="date"><?= $post['date'] ?></p>
+                <p><?= $author ?></p>                               <!-- Автор поста -->
+                <p><?= $post['active'] ?></p>                       <!-- Активность поста -->
+                <p class="date"><?= $post['date'] ?></p>            <!-- Дата создания поста -->
             </div>
             
         <?php } ?>
