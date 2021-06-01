@@ -6,6 +6,7 @@ require_once './News.php';
 <h2>Main</h2>
 
 <div class="content">
+
     <!-- Меню с категориями -->
     <div class="main_category">
         <ul>
@@ -13,10 +14,13 @@ require_once './News.php';
             <li><a href="?category=nature">Nature</a></li>
             <li><a href="?category=politics">Politics</a></li>
             <li><a href="?category=animals">Animals</a></li>
+            <li><a href="?category=tehnologies">Tehnologies</a></li>
         </ul>
     </div>
 
     <div class="main_posts">
+
+
         
         <?php
 
@@ -39,7 +43,13 @@ require_once './News.php';
 
 
         ?>
+
+
+
         <div class="main_posts_wrapper">
+
+
+
         <?php
 
 
@@ -57,23 +67,26 @@ require_once './News.php';
 
                                 foreach ($authorsTable as $author) {                   // Перебор массива с авторами
 
-                                    $coun = ceil($counter / 5);                        // Номер страници (на одной странице 5 постов)
+                                    $coun = ceil($counter / 5);                        // Номер страницы (на одной странице 5 постов)
 
                                     if($arPosts['author_id'] == $author['id']) {
             
                                     if (isset($_GET['post']) && $_GET['post'] == $arPosts['title']) {
-                                        viewPost($arPosts, $author['name']);           // Вызов функции для просмотра поста
+                                        $linkBack = $_SERVER['PHP_SELF']."?category=".$category['name']."&page=$coun";
+                                        viewPost($arPosts, $author['name'], $linkBack);           // Вызов функции для просмотра поста
                                     } ?>
 
                                     <!-- Вывод постов -->
-                                    <div class="main_post_path" <?php if ((isset($_GET['page']) && $_GET['page'] != $coun) || (!isset($_GET['page']) && $coun != 1)) { ?> style="display: none;" <?php } ?>>
-                                        <p class="post"><a href="?post=<?= $arPosts['title'] ?>"><?= $arPosts['title'] ?></a></p> <!-- Оглавление поста -->
-                                        <div class="main_date_name">
-                                            <p class="post">Автор: <?= $author['name'] ?></p>           <!-- Имя автора поста -->
-                                            <p class="post">Просмотров: <?= $arPosts['active'] ?></p>   <!-- Активность поста -->
-                                            <p class="post date">Дата: <?= $arPosts['date'] ?></p>      <!-- Время публикации -->
-                                        </div>
-                                    </div>
+                                    <table class="main_post_path" <?php if ((isset($_GET['page']) && $_GET['page'] != $coun) || (!isset($_GET['page']) && $coun != 1)) { ?> style="display: none;" <?php } ?>>
+                                        <tr>
+                                            <td colspan="3"><a href="?category=<?= $category['name'] ?>&post=<?= $arPosts['title'] ?>"><?= $arPosts['title'] ?></a></td> <!-- Оглавление поста -->
+                                        </tr>
+                                        <tr>
+                                            <td>Автор: <?= $author['name'] ?></td>           <!-- Имя автора поста -->
+                                            <td>Просмотров: <?= $arPosts['active'] ?></td>   <!-- Активность поста -->
+                                            <td>Дата: <?= $arPosts['date'] ?></td>           <!-- Время публикации -->
+                                        </tr>      <!-- Время публикации -->
+                                    </table>
                                     
                                     <?php
                                     }
@@ -90,23 +103,26 @@ require_once './News.php';
 
                 foreach ($authorsTable as $author) {
 
-                    $coun = ceil($counter / 5);                                          // Номер страници (на одной странице 5 постов)
+                    $coun = ceil($counter / 5);                                          // Номер страницы (на одной странице 5 постов)
 
                     if($arPosts['author_id'] == $author['id']) {
             
                     if (isset($_GET['post']) && $_GET['post'] == $arPosts['title']) {
-                        viewPost($arPosts, $author['name']);                             // Вызов функции для просмотра поста
+                        $linkBack = $_SERVER['PHP_SELF']."?page=$coun";
+                        viewPost($arPosts, $author['name'], $linkBack);                             // Вызов функции для просмотра поста
                     } ?>
 
                     <!-- Вывод постов -->
-                        <div class="main_post_path" <?php if ((isset($_GET['page']) && $_GET['page'] != $coun) || (!isset($_GET['page']) && $coun != 1)) { ?> style="display: none;" <?php } ?>>
-                            <p class="post"><a href="?post=<?= $arPosts['title'] ?>"><?= $arPosts['title'] ?></a></p> <!-- Оглавление поста -->
-                            <div class="main_date_name">
-                                <p class="post">Автор: <?= $author['name'] ?></p>           <!-- Имя автора поста -->
-                                <p class="post_view">Просмотров: <?= $arPosts['active'] ?></p>   <!-- Активность поста -->
-                                <p class="post date">Дата: <?= $arPosts['date'] ?></p>      <!-- Время публикации -->
-                            </div>
-                        </div>
+                    <table class="main_post_path" <?php if ((isset($_GET['page']) && $_GET['page'] != $coun) || (!isset($_GET['page']) && $coun != 1)) { ?> style="display: none;" <?php } ?>>
+                        <tr>
+                            <td colspan="3"><a href="?post=<?= $arPosts['title'] ?>"><?= $arPosts['title'] ?></a></td> <!-- Оглавление поста -->
+                        </tr>
+                        <tr>
+                            <td>Автор: <?= $author['name'] ?></td>           <!-- Имя автора поста -->
+                            <td>Просмотров: <?= $arPosts['active'] ?></td>   <!-- Активность поста -->
+                            <td>Дата: <?= $arPosts['date'] ?></td>           <!-- Время публикации -->
+                        </tr>      <!-- Время публикации -->
+                    </table>
                     
                     <?php 
                     }
@@ -117,16 +133,31 @@ require_once './News.php';
         ?>
 
 
+
         </div>
 
 
+
         <!-- Форма для пагинации -->
-        <form method="GET" class="pages_pagination">
+        <div class="pages_pagination">
             <?php 
-            for ($i = 1; $i <= $coun; $i++) { ?>
-                <button name="page" value="<?= $i ?>"><?= $i ?></button>
-            <?php } ?>
-        </form>
+            if (isset($coun) && $coun > 0) { ?>
+                Страница: 
+                <?php
+                for ($i = 1; $i <= $coun; $i++) {           // С категорией
+                    if (isset($_GET['category'])) { 
+                        $link = $_SERVER['PHP_SELF']."?category=".$_GET['category']."&page=$i"; ?>
+                        <a href="<?= $link ?>"><?= $i ?></a>
+                    <?php }
+                    else if (!isset($_GET['category'])) {   // Без категории
+                        $link = $_SERVER['PHP_SELF']."?page=$i"; ?>
+                        <a href="<?= $link ?>"><?= $i ?></a>
+                    <?php 
+                    }
+                }
+            }
+            else echo 'Постов нет'; ?>
+        </div>
 
 
 
@@ -134,19 +165,28 @@ require_once './News.php';
         <?php
 
         // Функция для просмотра поста
-        function viewPost($post, $author) {
+        function viewPost($post, $author, $linkBack) {
             
             $news = new News();
             $news->active($post['id']); ?>
 
             <style>.main_post_path {display: none;}.pages_pagination{display: none;}</style>
-            <p><b><?= $post['title'] ?></b></p>                     <!-- Оглавление поста -->
-            <p class="main_post_text"><?= $post['content'] ?></p>   <!-- Содержимое поста -->
-            <div class="main_date_name">
-                <p><?= $author ?></p>                               <!-- Автор поста -->
-                <p><?= $post['active'] ?></p>                       <!-- Активность поста -->
-                <p class="date"><?= $post['date'] ?></p>            <!-- Дата создания поста -->
-            </div>
+
+            <table>
+                <tr>
+                    <td colspan="3"><?= $post['title'] ?></td>
+                </tr>                     <!-- Оглавление поста -->
+                <tr>
+                    <td colspan="3" class="view_post"><?= $post['content'] ?></td>
+                </tr>   <!-- Содержимое поста -->
+                <tr>
+                    <td>Автор:      <?= $author ?></td>           <!-- Автор поста -->
+                    <td>Просмотров: <?= $post['active'] ?></td>   <!-- Активность поста -->
+                    <td>Дата:       <?= $post['date'] ?></td>     <!-- Дата создания поста -->
+                </tr>
+            </table>
+
+            <a href="<?= $linkBack ?>">&#171; Back</a>
             
         <?php } ?>
 

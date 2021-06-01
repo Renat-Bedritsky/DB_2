@@ -70,6 +70,7 @@ if (isset($_POST['title'])) {
                                     <option value="2">Nature</option>
                                     <option value="3">Politics</option>
                                     <option value="4">Animals</option>
+                                    <option value="5">Tehnologies</option>
                                 </select><br>
         <button>Добавить</button>
     </form>

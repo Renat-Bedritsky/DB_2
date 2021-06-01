@@ -75,7 +75,10 @@ li {
 .main_category {
     width: calc(20% - 15px);
     background-color: rgb(39, 123, 218);
+    font-size: 32px;
     padding: 10px;
+    text-align: center;
+    border: 1px solid red;
 }
 
 .main_posts {
@@ -92,9 +95,23 @@ li {
     flex: 1 0 auto;
 }
 
-.main_date_name p:nth-child(2) {
-    color: red;
-    margin: auto;
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 15px 0;
+}
+
+td {
+    width: 33.33%;
+}
+
+tr:nth-child(1) td {
+    font-size: 28px;
+    font-weight: 700;
+}
+
+tr:nth-child(2) td {
+    padding: 0 30px;
 }
 
 .main_posts a {
@@ -105,26 +122,13 @@ li {
     color: black;
 }
 
-.main_post_path {
-    margin: 15px 0;
-}
-
 .main_posts p:nth-child(1) {
     font-weight: 100;
     font-size: 24px;
 }
 
-.main_date_name {
-    display: flex;
-    margin-top: 5px;
-}
-
-.main_post_text {
+.main_post_text {  /**/
     margin: 20px;
-}
-
-.date {
-    margin-left: auto;
 }
 
 .pages_pagination {
@@ -132,10 +136,8 @@ li {
     padding: 20px 10px;
 }
 
-.pages_pagination button {
-    width: 25px;
-    height: 25px;
-    cursor: pointer;
+.pages_pagination a {
+    padding: 0 5px;
 }
 
 .gallery {

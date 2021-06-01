@@ -46,6 +46,8 @@ class News {
         }
     }
 
+
+    // Функция для изменения активности
     function active($id) {
         $sqlActive = "SELECT `active` FROM `posts` WHERE `id` = $id";      // Запрос для получения активности поста
         $active = $this->general($sqlActive);                              // Отправка запроса
