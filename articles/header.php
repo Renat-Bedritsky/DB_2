@@ -8,6 +8,9 @@
     <title>News</title>
     <link rel="stylesheet" href="style.css">
     <style>
+        * {
+            border: 1px solid red;
+        }
         table {
             width: 100%;
             border-collapse: collapse;
@@ -32,7 +35,8 @@
             padding: 0 5px;
         }
 
-        .autorization {
+        .autorization,
+        .registration {
             border: 3px solid black;
             padding: 10px;
             width: 400px;
@@ -42,20 +46,24 @@
         }
 
         .autorization_title,
-        .autorization_error {
+        .autorization_error,
+        .registration_title,
+        .registration_error {
             font-size: 32px;
             width: 360px;
             text-align: center;
             margin: 10px auto 0 auto;
         }
 
-        .autorization input {
+        .autorization input,
+        .registration input {
             width: 99%;
             height: 40px;
             font-size: 32px;
         }
         
-        .autorization button {
+        .autorization button,
+        .registration button {
             margin-top: 10px;
             width: 190px;
             font-size: 28px;

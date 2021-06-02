@@ -3,6 +3,7 @@
 require_once './header.php'; 
 
 $users = new Users();
+$usersLogin = $users->allUser();
 
 if (isset($_POST['enter'])) {
     if ($_POST['password_1'] != $_POST['password_2']) {
@@ -10,17 +11,20 @@ if (isset($_POST['enter'])) {
         echo '<div class="registration_error">Пароли не совпадают</div>';
     }
     else {
-        $allUsers = $users->allUser();
+        $user = $users->checkLogin($_POST['login']);
+        if ($user == 'User exist') {
+            echo '<style>.registration_title {display: none;}</style>';
+            echo '<div class="registration_error">Пользователь существует</div>';
+        }
+        else if ($user == 'User not exist') {
+            $login = $_POST['login'];
+            $password = md5($_POST['password_1']);
+            $users->registrationUser($login, $password);
+            echo '<style>.registration_title {display: none;}</style>';
+            echo '<div class="registration_error">Пользователь зарегистрирован</div>';
+        }
     }
 }
-$allUsers = $users->allUser();
-echo '<pre>';
-print_r($allUsers);
-echo '</pre>';
-$allUsers = $users->__construct();
-echo '<pre>';
-print_r($allUsers);
-echo '</pre>';
 
 ?>
 
@@ -31,11 +35,11 @@ echo '</pre>';
 <div class="registration">
     <form method="POST">
         Логин<br>
-        <input type="text" name="login" value=""><br>
+        <input type="text" name="login" minlength="3" value="" required><br>
         Пароль<br>
-        <input type="text" name="password_1" value=""><br>
+        <input type="password" name="password_1" minlength="5" value="" required><br>
         Ещё раз<br>
-        <input type="text" name="password_2" value=""><br>
+        <input type="password" name="password_2" minlength="5" value="" required><br>
         <button name="enter">Регистрация</button>
     </form>
 </div>
