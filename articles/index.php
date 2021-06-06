@@ -14,7 +14,7 @@ require_once './News.php';
             <li><a href="?category=nature">Nature</a></li>
             <li><a href="?category=politics">Politics</a></li>
             <li><a href="?category=animals">Animals</a></li>
-            <li><a href="?category=tehnologies">Tehnologies</a></li>
+            <li><a href="?category=technologies">Technologies</a></li>
         </ul>
     </div>
 

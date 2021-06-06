@@ -7,15 +7,14 @@ require_once './Users.php';
 $news = new News();
 $users = new Users();
 
-// echo '<pre>';
-// print_r($news->getPosts('posts'));
-// echo '</pre>';
+echo '<pre>';
+print_r($news->getLine('authors'));
+echo '</pre>';
 
-// $result = $news->active(4);
-// echo $result;
+echo '<pre>';
+print_r($users->allUser());
+echo '</pre>';
 
-$alex = 'secret';
-$user = $users->checkLogin($alex);
-echo $user;
+// echo $users2->autorization('admin', 'e10adc3949ba59abbe56e057f20f883e');
 
-require_once './footer.php';
+require_once './footer.php'; ?>

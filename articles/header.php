@@ -8,9 +8,9 @@
     <title>News</title>
     <link rel="stylesheet" href="style.css">
     <style>
-        * {
+        /** {
             border: 1px solid red;
-        }
+        }*/
         table {
             width: 100%;
             border-collapse: collapse;

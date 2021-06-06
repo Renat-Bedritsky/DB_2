@@ -14,17 +14,17 @@ require_once './News.php';                       // Подключение к б
 <?php
 
 
-if (isset($_POST['title'])) {
+if (isset($_POST['enter'])) {
 
     $news = new News();
-    $idSql = $news->getPosts(0);                 // Получение количества строк в таблице
+    $idSql = $news->getLine('posts');                 // Получение количества строк в таблице
 
     $users = new Users();
     $author = $users->CheckCookieLogin();        // Определение действующего пользователя
 
     date_default_timezone_set('Europe/Minsk');   // Назначение временой зоны (Минск)
 
-    $id = $idSql[0]['COUNT(*)'] + 1;             // Количество строк в таблице + 1
+    $id = $idSql + 1;                            // Количество строк в таблице + 1
     $active = 0;                                 // Активность в новости
     $title = $_POST['title'];                    // Заголовок новости
     $code = $id;                                 // Символьный код для URL
@@ -63,8 +63,8 @@ if (isset($_POST['title'])) {
 
 <div class="add_product">
     <form method="POST" name="add_product">
-        Оглавление:             <br><textarea rows="10" cols="80" name="title" value="" required></textarea><br>
-        Контент:                <br><textarea rows="10" cols="80" name="content" value="" required></textarea><br>
+        Оглавление:             <br><textarea rows="10" cols="80" minlength="5" name="title" value="" required></textarea><br>
+        Контент:                <br><textarea rows="10" cols="80" minlength="5" name="content" value="" required></textarea><br>
         Категория:              <select name="category_id">
                                     <option value="1">Sports</option>
                                     <option value="2">Nature</option>
@@ -72,7 +72,7 @@ if (isset($_POST['title'])) {
                                     <option value="4">Animals</option>
                                     <option value="5">Tehnologies</option>
                                 </select><br>
-        <button>Добавить</button>
+        <button name="enter">Добавить</button>
     </form>
 </div>
 

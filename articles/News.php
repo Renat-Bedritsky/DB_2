@@ -31,9 +31,6 @@ class News {
         else if ($table == 'posts') {
             $sql = 'SELECT * FROM posts';                                       // Текст запроса (К таблице с постами)
         }
-        else if ($table == 0) {
-            $sql = 'SELECT COUNT(*) FROM posts';                                // Текст запроса для получения количества строк
-        }
         
         $string = $this->general($sql);
         $result = [];                                                           // Пустой массив для товаров
@@ -47,6 +44,18 @@ class News {
     }
 
 
+    // Функция для получения количества строк
+    function getLine($table) {
+        $sql = "SELECT COUNT(*) FROM $table";
+        $string = $this->general($sql);
+
+        if($string) {
+            $row = $string->fetch_assoc();
+            return $row['COUNT(*)'];
+        }
+    }
+
+
     // Функция для изменения активности
     function active($id) {
         $sqlActive = "SELECT `active` FROM `posts` WHERE `id` = $id";      // Запрос для получения активности поста
@@ -55,11 +64,10 @@ class News {
         $active = $active['active'] + 1;                                   // Активность поста + 1
         $sql = "UPDATE `posts` SET `active` = $active WHERE `id` = $id";   // Запрос на изменение активности
         $this->general($sql);                                              // Отправка запроса
-        return $sql;
     }
 
 
-    // Функция для записи данных
+    // Функция для записи поста
     function setPosts($data) {
         
         $id = $data['id'];
@@ -73,6 +81,12 @@ class News {
 
         $sql = "INSERT INTO Posts VALUES ('$id', '$active', '$title', $code, '$content', '$category_id', '$author_id', '$date')";
         $this->general($sql);
+    }
+
+
+    // Функция для добавления нового автора
+    function setAuthor($author) {
+
     }
 }
 

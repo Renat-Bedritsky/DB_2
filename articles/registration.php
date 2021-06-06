@@ -1,6 +1,7 @@
 <?php 
 
 require_once './header.php'; 
+require_once './Users.php';
 
 $users = new Users();
 $usersLogin = $users->allUser();
@@ -20,8 +21,8 @@ if (isset($_POST['enter'])) {
             $login = $_POST['login'];
             $password = md5($_POST['password_1']);
             $users->registrationUser($login, $password);
-            echo '<style>.registration_title {display: none;}</style>';
-            echo '<div class="registration_error">Пользователь зарегистрирован</div>';
+            setcookie('login', md5($login));
+            header("location: /articles/index.php");
         }
     }
 }
