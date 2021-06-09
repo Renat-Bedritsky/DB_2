@@ -78,7 +78,11 @@ li {
     font-size: 32px;
     padding: 10px;
     text-align: center;
-    border: 1px solid red;
+}
+
+.main_category ul {
+    margin-left: 15px;
+    font-size: 32px;
 }
 
 .main_posts {
@@ -110,7 +114,7 @@ tr:nth-child(1) td {
     font-weight: 700;
 }
 
-tr:nth-child(2) td {
+tr:nth-child(3) td {
     padding: 0 30px;
 }
 
@@ -175,6 +179,40 @@ textarea {
 .all_users {
     font-size: 28px;
     padding: 20px;
+}
+
+.autorization,
+.registration {
+    border: 3px solid black;
+    padding: 10px;
+    width: 400px;
+    margin: 10% auto 0 auto;
+    font-size: 32px;
+    text-align: center;
+}
+
+.autorization_title,
+.autorization_error,
+.registration_title,
+.registration_error {
+    font-size: 32px;
+    width: 360px;
+    text-align: center;
+    margin: 10px auto 0 auto;
+}
+
+.autorization input,
+.registration input {
+    width: 99%;
+    height: 40px;
+    font-size: 32px;
+}
+
+.autorization button,
+.registration button {
+    margin-top: 10px;
+    width: 190px;
+    font-size: 28px;
 }
 
 .footer {

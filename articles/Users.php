@@ -92,6 +92,8 @@ class Users {
     
     // Функция для добавления пользователя
     function registrationUser($login, $password) {
+
+        // Добавление пользователя в базу данных
         $sql = "SELECT COUNT(*) FROM users";
         $enter = $this->general($sql);
 
@@ -109,6 +111,11 @@ class Users {
         $sql = "INSERT INTO users VALUES ('$id', '$login', '$password', '$date')";
         $this->general($sql);
 
+        // Добавление автора в таблицу
         $news = new News();
+        $id = $news->getLine('authors') + 1;
+
+        $sql = "INSERT INTO authors VALUES ('$id', '$login')";
+        $news->general($sql);
     }
 }

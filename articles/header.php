@@ -8,66 +8,7 @@
     <title>News</title>
     <link rel="stylesheet" href="style.css">
     <style>
-        /** {
-            border: 1px solid red;
-        }*/
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 15px 0;
-        }
-        td {
-            width: 33.33%;
-        }
-        tr:nth-child(1) td {
-            font-size: 28px;
-            font-weight: 700;
-        }
-        tr:nth-child(2) td {
-            padding: 0 30px;
-        }
-        .main_category ul {
-            margin-left: 15px;
-            font-size: 32px;
-        }
-
-        .pages_pagination a {
-            padding: 0 5px;
-        }
-
-        .autorization,
-        .registration {
-            border: 3px solid black;
-            padding: 10px;
-            width: 400px;
-            margin: 10% auto 0 auto;
-            font-size: 32px;
-            text-align: center;
-        }
-
-        .autorization_title,
-        .autorization_error,
-        .registration_title,
-        .registration_error {
-            font-size: 32px;
-            width: 360px;
-            text-align: center;
-            margin: 10px auto 0 auto;
-        }
-
-        .autorization input,
-        .registration input {
-            width: 99%;
-            height: 40px;
-            font-size: 32px;
-        }
         
-        .autorization button,
-        .registration button {
-            margin-top: 10px;
-            width: 190px;
-            font-size: 28px;
-        }
     </style>
 </head>
 <body>

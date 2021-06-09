@@ -17,30 +17,53 @@ class News {
     }
 
 
-    // Функция для получения данных
-    function getPosts($table, $category_id = 0) {
-        if ($category_id != 0) {
-            $sql = "SELECT * FROM $table WHERE category_id = '$category_id'";   // Текст запроса с выбраноной категорией
-        }
-        else if ($table == 'authors') {
-            $sql = 'SELECT * FROM authors';                                     // Текст запроса (К таблице с авторами)
-        }
-        else if ($table == 'categories') {
-            $sql = 'SELECT * FROM categories';                                  // Текст запроса (К таблице с категориями)
-        }
-        else if ($table == 'posts') {
-            $sql = 'SELECT * FROM posts';                                       // Текст запроса (К таблице с постами)
-        }
+    // Функция для получения данных таблицы
+    function getPosts($table) {
+        $sql = "SELECT * FROM $table";                // Запрос для получения всей таблицы
         
-        $string = $this->general($sql);
-        $result = [];                                                           // Пустой массив для товаров
+        $string = $this->general($sql);               // Отправка запроса
+        $result = [];                                 // Пустой массив для данных
 
         if($string) {
-            while ($row = $string->fetch_assoc()) {                             // fetch_assoc() извлекает запись
-                array_push($result, $row);                                      // Добавление записи в массив
+            while ($row = $string->fetch_assoc()) {   // fetch_assoc() извлекает запись
+                array_push($result, $row);            // Добавление записи в массив
             }
             return $result;
         }
+    }
+
+
+    // Функция для получения записи из таблицы
+    function getPost($table, $id) {
+        $sql = "SELECT * FROM $table WHERE id = $id"; // Запрос для получения одной записи из таблицы
+        
+        $string = $this->general($sql);               // Отправка запроса
+        $result = [];                                 // Пустой массив для данных
+
+        if($string) {
+            $result = $string->fetch_assoc();         // fetch_assoc() извлекает запись
+            return $result;
+        }
+    }
+
+
+    // Функция для нахождения автора поста
+    function getAuthor($id) {
+        $sql = "SELECT name FROM authors WHERE id = $id";
+        $string = $this->general($sql);
+        $result = $string->fetch_assoc();
+        $result = $result['name'];
+        return $result;
+    }
+
+
+    // Функция для нахождения автора поста
+    function getCategory($id) {
+        $sql = "SELECT name FROM categories WHERE id = $id";
+        $string = $this->general($sql);
+        $result = $string->fetch_assoc();
+        $result = $result['name'];
+        return $result;
     }
 
 
