@@ -10,13 +10,9 @@ html, body {
 .window {
     margin: auto;
     width: 80%;
+    height: 100%;
     display: flex;
     flex-direction: column;
-    min-height: 100%;
-}
-
-.window_wrapper {
-    flex: 1 0 auto;
 }
 
 h2 {
@@ -38,7 +34,8 @@ li {
 }
 
 .header {
-    background-color: rgb(39, 123, 218);
+    background-color: rgb(7, 94, 164);
+    background-image: url(../img/bg.jpg);
     padding: 30px;
     display: flex;
 }
@@ -61,20 +58,58 @@ li {
     font-weight: 700;
 }
 
+#main_category_toggle {
+	display: none;
+}
+
+.main_category_toggle {
+	position: relative;
+	display: none;
+	border: 0;
+	outline: 0;
+	background: none;
+}
+
+.main_category_toggle::before {
+	content: "≡";
+	color: #222;
+	font-size: 30px;
+}
+
+.main_category_vtoggle:hover::before {
+	color: #222;
+}
+
+._main_category_toggle label {
+	display: block;
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	top: 0;
+	left: 0;
+	cursor: pointer;
+}
+
+.window_wrapper {
+    flex: 1 0 auto;
+}
+
 .enter_account {
     margin-left: auto;
     font-size: 24px;
+    margin-top: 10px;
 }
 
 .content {
     display: flex;
     font-size: 24px;
-    height: 600px;
+    min-height: 600px;
 }
 
 .main_category {
     width: calc(20% - 15px);
-    background-color: rgb(39, 123, 218);
+    background-color: rgb(7, 94, 164);
+    background-image: url(../img/bg.jpg);
     font-size: 32px;
     padding: 10px;
     text-align: center;
@@ -85,14 +120,27 @@ li {
     font-size: 32px;
 }
 
+.main_category ul a:hover {
+    color: rgb(235, 255, 142);
+}
+
+.main_category ul li:nth-child(1) {
+    color: white;
+    margin-bottom: 20px;
+    font-weight: 700;
+}
+
 .main_posts {
     width: calc(80% - 15px);
-    background-color: rgb(236, 232, 167);
+    background-color: rgb(235, 255, 142);
     margin-left: 30px;
     padding: 0 10px;
     display: flex;
     flex-direction: column;
-    min-height: 100%;
+}
+
+.main_posts a {
+    color: rgb(7, 94, 164);
 }
 
 .main_posts_wrapper {
@@ -102,7 +150,8 @@ li {
 table {
     width: 100%;
     border-collapse: collapse;
-    margin: 15px 0;
+    margin: 10px;
+    padding: 10px;
 }
 
 td {
@@ -112,6 +161,7 @@ td {
 tr:nth-child(1) td {
     font-size: 28px;
     font-weight: 700;
+    border-bottom: 1px solid black;
 }
 
 tr:nth-child(3) td {
@@ -119,7 +169,7 @@ tr:nth-child(3) td {
 }
 
 .main_posts a {
-    color: rgb(39, 123, 218);
+    color: rgb(7, 94, 164);
 }
 
 .main_posts a:hover {
@@ -136,8 +186,8 @@ tr:nth-child(3) td {
 }
 
 .pages_pagination {
-    flex: 0 0 auto;
     padding: 20px 10px;
+    flex-shrink: 0;
 }
 
 .pages_pagination a {
@@ -151,6 +201,7 @@ tr:nth-child(3) td {
 
 .add_product form {
     font-size: 28px;
+    text-align: center;
 }
 
 .add_product form textarea,
@@ -219,9 +270,10 @@ textarea {
     margin-top: 40px;
     display: flex;
     background-color: #222;
+    background-image: url(../img/bg-footer.jpg);
     padding: 30px;
     color: white;
-    flex: 0 0 auto;
+    flex-shrink: 0;
 }
 
 .footer ul {

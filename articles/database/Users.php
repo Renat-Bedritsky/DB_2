@@ -1,9 +1,6 @@
 <?php
 
-require_once './News.php'; 
-
-// echo $_SERVER['DOCUMENT_ROOT'];
-
+require_once 'News.php'; 
 
 class Users {
     protected $servername = 'localhost';
@@ -57,7 +54,7 @@ class Users {
 
         foreach($listUsers as $userOne) {
             if ($login == $userOne['login'] && $password == $userOne['password']) {
-                return 'autorizationON';
+                return 'autorizationYES';
             }
             else return 'autorizationNO';
         }
@@ -81,9 +78,9 @@ class Users {
     function CheckCookieLogin() {
         $listUsers = $this->allLoginAndPass();
 
-        foreach($listUsers as $userOne) {
-            if ($_COOKIE['login'] == md5($userOne['login'])) {
-                $userData = ['author_id' => $userOne['id'], 'login' => $userOne['login']];
+        foreach($listUsers as $user) {
+            if ($_COOKIE['login'] == md5($user['login'])) {
+                $userData = ['author_id' => $user['id'], 'login' => $user['login']];
                 return $userData;
             }
         }
@@ -93,7 +90,6 @@ class Users {
     // Функция для добавления пользователя
     function registrationUser($login, $password) {
 
-        // Добавление пользователя в базу данных
         $sql = "SELECT COUNT(*) FROM users";
         $enter = $this->general($sql);
 
@@ -110,12 +106,5 @@ class Users {
 
         $sql = "INSERT INTO users VALUES ('$id', '$login', '$password', '$date')";
         $this->general($sql);
-
-        // Добавление автора в таблицу
-        $news = new News();
-        $id = $news->getLine('authors') + 1;
-
-        $sql = "INSERT INTO authors VALUES ('$id', '$login')";
-        $news->general($sql);
     }
 }

@@ -1,10 +1,13 @@
 <?php 
 
-require_once './header.php'; 
-require_once './Users.php';
+require_once 'header.php'; 
+require_once './database/Users.php';
+require_once './database/News.php';
 
 $users = new Users();
 $usersLogin = $users->allUser();
+
+$news = new News();
 
 if (isset($_POST['enter'])) {
     if ($_POST['password_1'] != $_POST['password_2']) {
@@ -20,7 +23,10 @@ if (isset($_POST['enter'])) {
         else if ($user == 'User not exist') {
             $login = $_POST['login'];
             $password = md5($_POST['password_1']);
+
             $users->registrationUser($login, $password);
+            $news->setAuthor($login);
+
             setcookie('login', md5($login));
             header("location: /articles/index.php");
         }
@@ -45,4 +51,4 @@ if (isset($_POST['enter'])) {
     </form>
 </div>
     
-<?php require_once './footer.php' ?>
+<?php require_once 'footer.php' ?>

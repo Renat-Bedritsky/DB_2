@@ -53,16 +53,19 @@ class News {
         $string = $this->general($sql);
         $result = $string->fetch_assoc();
         $result = $result['name'];
+
         return $result;
     }
 
 
     // Функция для нахождения автора поста
     function getCategory($id) {
+
         $sql = "SELECT name FROM categories WHERE id = $id";
         $string = $this->general($sql);
         $result = $string->fetch_assoc();
         $result = $result['name'];
+
         return $result;
     }
 
@@ -81,35 +84,36 @@ class News {
 
     // Функция для изменения активности
     function active($id) {
-        $sqlActive = "SELECT `active` FROM `posts` WHERE `id` = $id";      // Запрос для получения активности поста
-        $active = $this->general($sqlActive);                              // Отправка запроса
-        $active = $active->fetch_assoc();                                  // Распаковка данных
-        $active = $active['active'] + 1;                                   // Активность поста + 1
-        $sql = "UPDATE `posts` SET `active` = $active WHERE `id` = $id";   // Запрос на изменение активности
-        $this->general($sql);                                              // Отправка запроса
+        $sql = "UPDATE `posts` SET `active` = `active` + 1 WHERE `id` = $id";   // Запрос на изменение активности
+        $this->general($sql);                                                   // Отправка запроса
     }
 
 
     // Функция для записи поста
     function setPosts($data) {
-        
-        $id = $data['id'];
-        $active = $data['active'];
-        $title = $data['title'];
-        $code = $data['code'];
-        $content = $data['content'];
-        $category_id = $data['category_id'];
-        $author_id = $data['author_id'];
-        $date = $data['date'];
+        date_default_timezone_set('Europe/Minsk');   // Назначение временой зоны (Минск)
 
-        $sql = "INSERT INTO Posts VALUES ('$id', '$active', '$title', $code, '$content', '$category_id', '$author_id', '$date')";
+        $id = $this->getLine('posts') + 1;           // Количество строк в таблице + 1
+        $active = 0;                                 // Активность в новости
+        $title = $data['title'];                     // Заголовок новости
+        $code = $id;                                 // Символьный код для URL
+        $content = $data['content'];                 // Сама новость
+        $category_id = $data['category_id'];         // ID категории
+        $author_id = $data['author_id'];             // ID автора
+        $date = date("Y-m-d H:i:s");                 // Дата создания поста
+
+        $sql = "INSERT INTO posts VALUES ('$id', '$active', '$title', $code, '$content', '$category_id', '$author_id', '$date')";
         $this->general($sql);
     }
 
 
     // Функция для добавления нового автора
-    function setAuthor($author) {
+    function setAuthor($name) {
 
+        $id = $this->getLine('authors') + 1;
+
+        $sql = "INSERT INTO authors VALUES ('$id', '$name')";
+        $this->general($sql);
     }
 }
 

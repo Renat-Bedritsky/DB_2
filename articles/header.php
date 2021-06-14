@@ -1,4 +1,7 @@
-<?php include 'Users.php'; ?>
+<?php 
+include 'database/News.php';
+include 'database/Users.php';
+?>
 
 <!DOCTYPE html>
 <html lang="ru">
@@ -6,9 +9,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>News</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="css/style2.css">
+    <link rel="stylesheet" href="css/media2.css">
     <style>
-        
+
     </style>
 </head>
 <body>
@@ -20,13 +24,13 @@
         <div class="header">
         
             <div>
-                <img src="./img/logo.png" class="header_logo" alt="logo">
+                <img src="img/logo.png" class="header_logo" alt="logo">
             </div>
 
             <div class="header_nav">
                 <ul>
-                    <li><a href="./index.php">Main</a></li>
-                    <li><a href="./gallery.php">Gallery</a></li>
+                    <li><a href="index.php">Main</a></li>
+                    <li><a href="gallery.php">Gallery</a></li>
 
                     <?php 
             
@@ -36,13 +40,13 @@
 
                         if (md5($user['login']) == $_COOKIE['login']) { ?>
 
-                            <li><a href="./addPost.php">Add post</a></li>
+                            <li><a href="addPost.php">Add post</a></li>
 
                         <?php 
                         }
                         else { ?>
 
-                            <li><a href="./contacts.php">Users</a></li>
+                            <li><a href="contacts.php">Users</a></li>
             
                         <?php 
                         }
@@ -51,7 +55,7 @@
                     
                     ?>
 
-                        <li><a href="./contacts.php">Users</a></li>
+                        <li><a href="contacts.php">Users</a></li>
 
                     <?php 
                     } ?>
@@ -68,7 +72,7 @@
                 if (md5($user['login']) == $_COOKIE['login']) { ?>
 
                     <div class="enter_account">
-                        <div><a href="./logout.php">Logout</a></div>
+                        <div><a href="logout.php">Logout</a></div>
                     </div>
 
                 <?php 
@@ -76,7 +80,7 @@
                 else { ?>
 
                     <div class="enter_account">
-                        <div><a href="./autorization.php">Login</a></div>
+                        <div><a href="autorization.php">Login</a></div>
                     </div>
     
                 <?php 
@@ -87,7 +91,7 @@
             ?>
 
                 <div class="enter_account">
-                    <div><a href="./autorization.php">Login</a></div>
+                    <div><a href="autorization.php">Login</a></div>
                 </div>
 
             <?php 

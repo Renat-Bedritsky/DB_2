@@ -1,8 +1,5 @@
+  
 RewriteEngine On
 RewriteBase /
 
-RewriteCond %{REQUEST_FILENAME} !/index.php
-RewriteCond %{REQUEST_FILENAME} !/style.css
-RewriteCond %{REQUEST_FILENAME} !/media.css
-RewriteCond %{REQUEST_FILENAME} !/([a-zA-Z0-9_])+.png
-# RewriteRule .+ 404.php
+RewriteRule ^articles/([0-9]+)?/?([0-9]+)?/? articles/detail.php?category=$1&post=$2

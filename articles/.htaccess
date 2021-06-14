@@ -1,0 +1,13 @@
+RewriteEngine On
+RewriteBase /
+
+# RewriteCond %{REQUEST_FILENAME} !-f
+# RewriteCond %{REQUEST_FILENAME} !-d
+# RewriteRule .+ articles/404.php [L]
+
+ErrorDocument 404 /articles/404.php
+
+RewriteCond %{REQUEST_URI} /database/
+RewriteRule .+ articles/404.php
+
+# RewriteRule ^articles/([0-9]+)/(?post[0-9]+)/ articles/detail.php?category=$1&post=$2

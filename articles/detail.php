@@ -1,25 +1,48 @@
 <?php 
 
-require_once './header.php';
-require_once './News.php'; 
+require_once 'header.php';
+require_once 'database/News.php'; 
 
-// if (!isset($_GET['category']) || !isset($_GET['post'])) {
-//     header("location: /articles/index.php");
-// }
+if (!isset($_GET['category']) || !isset($_GET['post'])) {
+    header("location: /articles/index.php");
+}
+
+$news = new News();
+$categories = $news->getPosts('categories');
+
+// Обновление просмотров страницы
+$news->active($_GET['post']);
 
 ?>
 
 <style>
-    .main_posts {
-        width: 100%;
-        margin-left: 0;
-        padding: 0 50px;
+    table tr:nth-child(2) td {
+        padding: 20px 10px 20px 0;
+        font-size: 28px;
     }
 </style>
 
 <h2>Detail</h2>
 
 <div class="content">
+
+    <!-- Меню с категориями -->
+    <div class="main_category">
+		<button class="main_category_toggle"><label for="main_category_toggle"></label></button>
+        <input type="checkbox" id="main_category_toggle">
+        
+        <ul> 
+            <li>Categories:</li>
+            <li><a href="index.php">All</a></li>
+        
+        <?php foreach ($categories as $path) { ?>
+
+            <li><a href="section.php?category=<?= $path['id'] ?>"><?= $path['name'] ?></a></li>
+
+        <?php } ?>
+
+        </ul>
+    </div>
 
     <div class="main_posts">
 
@@ -28,16 +51,6 @@ require_once './News.php';
 
 
     <?php
-
-    $news = new News();
-
-    // Получение массива с категориями
-    $categoryTable = $news->getPosts('categories');
-    $categoryTable = (array)$categoryTable;
-
-    // Получение массива с авторами
-    $authorsTable = $news->getPosts('authors');
-    $authorsTable = (array)$authorsTable;
 
     $post = $news->getPost('posts', $_GET['post']);
 
@@ -66,4 +79,4 @@ require_once './News.php';
 
 </div>
 
-<?php require_once './footer.php' ?>
+<?php require_once 'footer.php' ?>

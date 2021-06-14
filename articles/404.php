@@ -13,12 +13,21 @@
             margin-top: 20%;
             font-size: 72px;
         }
+        a {
+            text-decoration: none;
+            color: black;
+            font-size: 24px;
+        }
     </style>
 </head>
 <body>
 
 
 <h1>404 ERROR</h1>
+
+<?php $index = $_SERVER['DOCUMENT_ROOT'].'/articles/index.php'; ?>
+
+<a href="../index.php">На главную</a>
 
     
 </body>

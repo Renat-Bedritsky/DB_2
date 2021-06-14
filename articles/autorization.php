@@ -1,6 +1,6 @@
 <?php 
 
-require_once './header.php';
+require_once 'header.php';
 
 $users = new Users();
 
@@ -8,7 +8,7 @@ if (isset($_POST['enter'])) {
     $login = $_POST['login'];
     $password = md5($_POST['password']);
 
-    if ($users->autorization($login, $password) == 'autorizationON') {
+    if ($users->autorization($login, $password) == 'autorizationYES') {
         setcookie('login', md5($_POST['login']));
         header("location: /articles/index.php");
     }
@@ -41,4 +41,4 @@ if (isset($_POST['registration'])) {
 
 </div>
     
-<?php require_once './footer.php' ?>
+<?php require_once 'footer.php'; echo md5('admin'); ?>

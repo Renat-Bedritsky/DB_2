@@ -1,4 +1,4 @@
-<?php require_once './header.php' ?>
+<?php include 'header.php' ?>
 
 <h2>Gallery</h2>
 
@@ -25,4 +25,4 @@
     </div>
 </div>
     
-<?php require_once './footer.php' ?>
+<?php require_once 'footer.php' ?>

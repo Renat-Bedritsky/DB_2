@@ -1,31 +1,38 @@
 <?php 
 
-require_once './header.php';
-require_once './News.php'; 
+require_once 'header.php';
+require_once 'database/News.php'; 
 
 if (!isset($_GET['category'])) {
     header("location: /articles/index.php");
 }
 
-// TODO
-// if (isset($_GET['post']) && $_GET['post'] == $arPosts['title']) {
-//     $linkBack = $_SERVER['PHP_SELF']."?category=".$category['name']."&page=$coun";
-//     viewPostV2($arPosts, $author, $linkBack);
-// }
+$news = new News();
+$categories = $news->getPosts('categories');
 
 ?>
-
-<style>
-    .main_posts {
-        width: 100%;
-        margin-left: 0;
-        padding: 0 50px;
-    }
-</style>
 
 <h2>Main</h2>
 
 <div class="content">
+
+    <!-- Меню с категориями -->
+    <div class="main_category">
+		<button class="main_category_toggle"><label for="main_category_toggle"></label></button>
+        <input type="checkbox" id="main_category_toggle">
+        
+        <ul> 
+            <li>Categories:</li>
+            <li><a href="index.php">All</a></li>
+        
+        <?php foreach ($categories as $path) { ?>
+
+            <li><a href="section.php?category=<?= $path['id'] ?>"><?= $path['name'] ?></a></li>
+
+        <?php } ?>
+
+        </ul>
+    </div>
 
     <div class="main_posts">
 
@@ -59,7 +66,7 @@ if (!isset($_GET['category'])) {
                     <table class="main_post_path">
                         <tr>
                             <td colspan="3">
-                                <a href="./detail.php?category=<?= $arPosts['category_id'] ?>&post=<?= $arPosts['id'] ?>">
+                                <a href="detail.php?category=<?= $arPosts['category_id'] ?>&post=<?= $arPosts['id'] ?>">
                                     <?= $arPosts['title'] ?>                 <!-- Оглавление поста -->
                                 </a>
                             </td>
@@ -71,7 +78,7 @@ if (!isset($_GET['category'])) {
                             <td>Автор: <?= $author ?></td>                   <!-- Имя автора поста -->
                             <td>Просмотров: <?= $arPosts['active'] ?></td>   <!-- Активность поста -->
                             <td>Дата: <?= $arPosts['date'] ?></td>           <!-- Время публикации -->
-                        </tr>      <!-- Время публикации -->
+                        </tr>
                     </table>
                                         
                 <?php 
@@ -102,4 +109,4 @@ if (!isset($_GET['category'])) {
 
 </div>
 
-<?php require_once './footer.php' ?>
+<?php require_once 'footer.php' ?>

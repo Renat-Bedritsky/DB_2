@@ -1,6 +1,7 @@
 <?php 
-require_once './header.php';
-require_once './News.php';                       // Подключение к базе данных с новостями
+require_once 'header.php';
+require_once 'database/News.php';              // Подключение к базе данных с новостями
+require_once 'database/Users.php';
 ?>
 
 
@@ -16,39 +17,22 @@ require_once './News.php';                       // Подключение к б
 
 if (isset($_POST['enter'])) {
 
-    $news = new News();
-    $idSql = $news->getLine('posts');                 // Получение количества строк в таблице
-
     $users = new Users();
     $author = $users->CheckCookieLogin();        // Определение действующего пользователя
 
-    date_default_timezone_set('Europe/Minsk');   // Назначение временой зоны (Минск)
-
-    $id = $idSql + 1;                            // Количество строк в таблице + 1
-    $active = 0;                                 // Активность в новости
     $title = $_POST['title'];                    // Заголовок новости
-    $code = $id;                                 // Символьный код для URL
     $content = $_POST['content'];                // Сама новость
     $category_id = $_POST['category_id'];        // ID категории
     $author_id = $author['author_id'];           // ID автора
-    $date = date("Y-m-d H:i:s");                 // Дата создания поста
 
-    $data = array(
-                'id' => $id, 
-                'active' => $active, 
+    $data = array( 
                 'title' => $title, 
-                'code' => $code, 
                 'content' => $content, 
                 'category_id' => $category_id, 
-                'author_id' => $author_id, 
-                'date' => $date
-
+                'author_id' => $author_id 
             );
 
-    // echo '<pre>';
-    // print_r($data);
-    // echo '</pre>';
-
+    $news = new News();
     $news->setPosts($data);
 
     header("location: /articles/index.php");     // Перенаправление на главную страницу
@@ -79,4 +63,4 @@ if (isset($_POST['enter'])) {
 
 
 
-<?php require_once './footer.php';
+<?php require_once 'footer.php';

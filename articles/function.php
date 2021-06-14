@@ -1,9 +1,7 @@
-<?php require_once './News.php'; 
+<?php require_once 'database/News.php';
 
-if (isset($_GET['category'])) {
-    $category = $_GET['category'];
-    header("location: /articles/section.php?category=$category");
-}
+$news = new News();
+$categories = $news->getPosts('categories');
 
 ?>
 
@@ -13,12 +11,19 @@ if (isset($_GET['category'])) {
 
     <!-- Меню с категориями -->
     <div class="main_category">
-        <ul>
-            <li><a href="?category=1">Sport</a></li>
-            <li><a href="?category=2">Nature</a></li>
-            <li><a href="?category=3">Politics</a></li>
-            <li><a href="?category=4">Animals</a></li>
-            <li><a href="?category=5">Technologies</a></li>
+		<button class="main_category_toggle"><label for="main_category_toggle"></label></button>
+        <input type="checkbox" id="main_category_toggle">
+        
+        <ul> 
+            <li>Categories:</li>
+            <li><a href="index.php">All</a></li>
+        
+        <?php foreach ($categories as $path) { ?>
+
+            <li><a href="section.php?category=<?= $path['id'] ?>"><?= $path['name'] ?></a></li>
+
+        <?php } ?>
+
         </ul>
     </div>
 
@@ -29,8 +34,6 @@ if (isset($_GET['category'])) {
 
         
         <?php
-
-        $news = new News();
 
         // Получение массива с постами
         $postsTable = $news->getPosts('posts');
@@ -53,7 +56,7 @@ if (isset($_GET['category'])) {
                 <table class="main_post_path">
                     <tr>
                         <td colspan="3">
-                            <a href="./detail.php?category=<?= $arPosts['category_id'] ?>&post=<?= $arPosts['id'] ?>">
+                            <a href="detail.php?category=<?= $arPosts['category_id'] ?>&post=<?= $arPosts['id'] ?>">
                                 <?= $arPosts['title'] ?>                 <!-- Оглавление поста -->
                             </a>
                         </td>
@@ -68,8 +71,9 @@ if (isset($_GET['category'])) {
                     </tr>
                 </table>
                         
-            <?php } 
-        }?>
+            <?php 
+            }
+        } ?>
 
 
 

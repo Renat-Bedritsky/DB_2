@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1
--- Время создания: Июн 09 2021 г., 17:45
+-- Время создания: Июн 15 2021 г., 01:44
 -- Версия сервера: 10.4.17-MariaDB
 -- Версия PHP: 8.0.2
 
@@ -48,7 +48,9 @@ INSERT INTO `users` (`id`, `login`, `password`, `date`) VALUES
 (3, 'Peter', 'a8698009bce6d1b8c2128eddefc25aad', '2021-06-05 02:00:00'),
 (4, 'secret', 'e10adc3949ba59abbe56e057f20f883e', '2021-06-06 19:52:52'),
 (5, 'Bob', '827ccb0eea8a706c4c34a16891f84e7b', '2021-06-06 21:50:54'),
-(6, 'Renat', '827ccb0eea8a706c4c34a16891f84e7b', '2021-06-09 15:56:50');
+(6, 'Renat', '827ccb0eea8a706c4c34a16891f84e7b', '2021-06-09 15:56:50'),
+(7, 'Nike', 'e10adc3949ba59abbe56e057f20f883e', '2021-06-11 21:05:59'),
+(8, 'Los', 'e10adc3949ba59abbe56e057f20f883e', '2021-06-13 22:10:07');
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
